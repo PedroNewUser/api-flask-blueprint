@@ -1,4 +1,5 @@
 import mysql.connector
+import os
 
 def get_db_connection():
     """
@@ -8,9 +9,9 @@ def get_db_connection():
     - Uma conexão com o banco de dados MySQL, configurada com os parâmetros especificados.
     """
     return mysql.connector.connect(
-        host='127.0.0.1',         # Endereço do servidor MySQL. '127.0.0.1' refere-se ao servidor local.
-        user='root',             # Nome de usuário para autenticação no banco de dados.
-        password='root',         # Senha do usuário para autenticação no banco de dados.
-        database='lp_trainer',   # Nome do banco de dados ao qual conectar.
-        port=8889                # Porta na qual o servidor MySQL está ouvindo (porta padrão do MAMP).
+        host=os.getenv('MYSQL_HOST', 'mysql'),  # Nome do serviço MySQL no Docker Compose
+        user=os.getenv('MYSQL_USER', 'user'),  # Nome do usuário para autenticação
+        password=os.getenv('MYSQL_PASSWORD', 'secret'),  # Senha do usuário
+        database=os.getenv('MYSQL_DATABASE', 'lp_trainer'),  # Nome do banco de dados
+        port=int(os.getenv('MYSQL_PORT', 3306)) 
     )

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    # Define o serviço 'web' que será construído a partir do Dockerfile especificado
+    build: 
+      context: .        # Define o contexto de construção como o diretório atual
+      dockerfile: Dockerfile  # Especifica o Dockerfile a ser usado para construir a imagem
+    ports:
+      - "5000:5000"    # Mapeia a porta 5000 do container para a porta 5000 do host
+    volumes:
+      - .:/app         # Monta o diretório atual no diretório /app dentro do container para permitir alterações em tempo real
+    environment:
+      FLASK_APP: main:create_app   # Define a variável de ambiente FLASK_APP para apontar para o arquivo e a função de criação do aplicativo Flask
+      FLASK_ENV: development        # Define o ambiente do Flask como 'development' para habilitar o modo de desenvolvimento
